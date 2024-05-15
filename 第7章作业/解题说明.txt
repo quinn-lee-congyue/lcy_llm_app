@@ -1,0 +1,14 @@
+问题描述：实现 OpenAI-Translator V2.0 中的一个或多个特性
+
+支持图形用户界面（GUI），提升易用性。
+添加对保留源 PDF 的原始布局的支持。
+服务化：以 API 形式提供翻译服务支持。
+添加对其他语言的支持。
+
+
+本作业：选择添加对其他语言的支持，用户可以自行选择翻译的语言。
+解题思路：1）选择目标语言的函数在pdf_translator.py文件里的translate_pdf函数。而实际调用时，在mian.py文件中translator.translate_pdf(pdf_file_path, file_format,target_language)语句中，因此只需要把target_language变成可选参数，在代码上方增加：
+target_language = args.target_language if args.target_language else config['common']['target_language']
+2）需要在config.yaml下common增加target_language: "中文"以及argument_parser.py文件中ArgumentParser类增加self.parser.add_argument('--target_language', type=str, help='The target language of translated book. ')即可。
+
+命令行实现：python ai_translator/main.py --model_type GLMModel --target_language "法语"
